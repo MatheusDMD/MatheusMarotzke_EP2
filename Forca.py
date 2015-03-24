@@ -1,60 +1,93 @@
+# -*- coding: utf-8 -*-
+#Matheus Dias Marotzke Dib
 import turtle
+import random
 window = turtle.Screen()
 window.bgcolor("yellow")
 window.title("Forca")
-y=('sim')
-x=window.textinput(('Um ou Dois?','Escolha entre: Um jogador ou Dois Jogadores:').lower())
-while y==('sim') or y==('quero'):
-    while x==('um') or x==('um jogador'):
-        if 
-        palavra = input(" ")
-            
+y='sim'
+f=open('entrada.txt', encoding="utf-8")
+l= f.readlines()
+for i in range(len(l)):
+    l[i]=l[i].strip().lower()
+palavra2=(random.choice(l))
+x=str(window.textinput('Um ou Dois?','Escolha entre: Um jogador ou Dois Jogadores:')).lower()
+while y=='sim' or y=='quero':
+    while x=='dois' or x=='dois jogadores' or x=='2':
+        palavra=(window.textinput('Jogador 1 coloque sua Palavra:','P1 - SEM DEIXAR P2 VER! Digite Palavra:').lower())
         forca=turtle.Turtle()
         forca.speed(4)
         forca.penup()
         forca.setpos(-500,-250)
         forca.pendown()
         forca.color("black")
-        
         linhas=turtle.Turtle()
         linhas.speed(4)
         linhas.penup()
         linhas.setpos(-500,-250)
         linhas.pendown()
         linhas.color("black")
-        
-        dist=500
-        dist1=100
-        dist2=200
-        dist3=100
-        dist4=50
-        dist5=150
-        dist6=300
-        dist7=50
-        dist8=550
         angulo = 90
-        
         for i in range(1):
             forca.left(angulo)
-            forca.forward(dist)
+            forca.forward(500)
             forca.right(angulo)
-            forca.fd(dist2)
+            forca.fd(200)
             forca.right(angulo)
-            forca.fd(dist3)
+            forca.fd(100)
             forca.left(angulo)
-            forca.fd(dist4)
+            forca.fd(50)
             forca.left(angulo)
-            forca.fd(dist5)
+            forca.fd(150)
             forca.left(angulo)
-            forca.fd(dist6)
+            forca.fd(300)
             forca.left(angulo)
-            forca.fd(dist8)
+            forca.fd(550)
             forca.left(angulo)
-            forca.fd(dist7)
+            forca.fd(50)
             linhas.penup()
             linhas.setpos(-300,-250)
             for i in range(len(palavra)):
                 #linhas.write('_',font=('Arial',100,'normal'))
+                linhas.pendown()
+                linhas.forward(40)
+                linhas.penup()
+                linhas.forward(10)
+    else:
+        palavra=(window.textinput('Jogador 1 coloque sua Palavra:','P1 - SEM DEIXAR P2 VER! Digite Palavra:').lower())
+        forca=turtle.Turtle()
+        forca.speed(4)
+        forca.penup()
+        forca.setpos(-500,-250)
+        forca.pendown()
+        forca.color("black")
+        linhas=turtle.Turtle()
+        linhas.speed(4)
+        linhas.penup()
+        linhas.setpos(-500,-250)
+        linhas.pendown()
+        linhas.color("black")
+        angulo = 90
+        for i in range(1):
+            forca.left(angulo)
+            forca.forward(500)
+            forca.right(angulo)
+            forca.fd(200)
+            forca.right(angulo)
+            forca.fd(100)
+            forca.left(angulo)
+            forca.fd(50)
+            forca.left(angulo)
+            forca.fd(150)
+            forca.left(angulo)
+            forca.fd(300)
+            forca.left(angulo)
+            forca.fd(550)
+            forca.left(angulo)
+            forca.fd(50)
+            linhas.penup()
+            linhas.setpos(-300,-250)
+            for i in range(len(palavra2)):
                 linhas.pendown()
                 linhas.forward(40)
                 linhas.penup()
