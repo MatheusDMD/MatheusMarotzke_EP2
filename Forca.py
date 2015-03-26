@@ -70,6 +70,7 @@ while y=='sim' or y=='quero':
     palavra2=(random.choice(l))
     p=list(palavra2)
     print(p)
+    erro=0
     if x=='dois' or x=='dois jogadores' or x=='2':
         palavra=(window.textinput('Jogador 1 coloque sua Palavra:','P1 - SEM DEIXAR P2 VER! Digite Palavra:').lower())
         forca=turtle.Turtle()
@@ -129,6 +130,14 @@ while y=='sim' or y=='quero':
                 linhas.penup()
                 linhas.forward(40)
                 linhas.pendown()
+        while erro < 6:
+            letra=window.textinput('Letra','Escolha uma letra').lower()
+            if letra in p:
+                i = p.index(letra)
+                linhas.penup()
+                linhas.setpos(-500+(40+10)*i,-250)
+                linhas.pendown()
+                linhas.write(letra, font=('Arial',25,'normal'))
     y=window.textinput('Jogar novamente?', 'Quer jogar novamente?').lower()
             
 window.exitonclick()
