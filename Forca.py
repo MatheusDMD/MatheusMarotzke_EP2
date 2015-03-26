@@ -94,7 +94,6 @@ while y=='sim' or y=='quero':
         linhas.penup()
         linhas.setpos(-300,-250)
         for i in range(len(palavra)):
-            #linhas.write('_',font=('Arial',100,'normal'))
             linhas.pendown()
             linhas.forward(40)
             linhas.penup()
@@ -132,23 +131,35 @@ while y=='sim' or y=='quero':
                 linhas.pendown()
         while erro < 6:
             letra=window.textinput('Letra','Escolha uma letra').lower()
-            for i in range(len(letra)):
-                if(letra)==letra[i]:
+            if letra not in p:
+                    erro+=1
+            for i in range(0,len(p)):
+                if letra==p[i]:
+                    linhas.penup()
+                    linhas.setpos(-500+(40+10)*i,-250)
+                    linhas.pendown()
+                    linhas.write(letra, font=('Arial',25,'normal'))
+                elif(letra)=='a' and p[i]=='ã':
+                    linhas.penup()
+                    linhas.setpos(-500+(40+10)*i,-250)
+                    linhas.pendown()
+                    linhas.write(letra, font=('Arial',25,'normal'))
+                elif(letra)=='i' and p[i]=='í':
+                    linhas.penup()
+                    linhas.setpos(-500+(40+10)*i,-250)
+                    linhas.pendown()
+                    linhas.write(letra, font=('Arial',25,'normal'))
+                elif(letra)=='o' and p[i]=='ó':
+                    linhas.penup()
+                    linhas.setpos(-500+(40+10)*i,-250)
+                    linhas.pendown()
+                    linhas.write(letra, font=('Arial',25,'normal'))
+                elif(letra)=='o' and p[i]=='ô':
                     linhas.penup()
                     linhas.setpos(-500+(40+10)*i,-250)
                     linhas.pendown()
                     linhas.write(letra[i], font=('Arial',25,'normal'))
-                elif(letra)=='a' and palavra[i]=='ã':
-                    linhas.penup()
-                    linhas.setpos(-500+(40+10)*i,-250)
-                    linhas.pendown()
-                    linhas.write(letra[i], font=('Arial',25,'normal'))
-                elif(letra)=='i' and palavra[i]=='í':
-                    linhas.penup()
-                    linhas.setpos(-500+(40+10)*i,-250)
-                    linhas.pendown()
-                    linhas.write(letra[i], font=('Arial',25,'normal'))
-                elif(letra)=='
+                fun_erro(erro)
     y=window.textinput('Jogar novamente?', 'Quer jogar novamente?').lower()
             
 window.exitonclick()
