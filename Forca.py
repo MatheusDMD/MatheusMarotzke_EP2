@@ -132,12 +132,23 @@ while y=='sim' or y=='quero':
                 linhas.pendown()
         while erro < 6:
             letra=window.textinput('Letra','Escolha uma letra').lower()
-            if letra in p:
-                i = p.index(letra)
-                linhas.penup()
-                linhas.setpos(-500+(40+10)*i,-250)
-                linhas.pendown()
-                linhas.write(letra, font=('Arial',25,'normal'))
+            for i in range(len(letra)):
+                if(letra)==letra[i]:
+                    linhas.penup()
+                    linhas.setpos(-500+(40+10)*i,-250)
+                    linhas.pendown()
+                    linhas.write(letra[i], font=('Arial',25,'normal'))
+                elif(letra)=='a' and palavra[i]=='ã':
+                    linhas.penup()
+                    linhas.setpos(-500+(40+10)*i,-250)
+                    linhas.pendown()
+                    linhas.write(letra[i], font=('Arial',25,'normal'))
+                elif(letra)=='i' and palavra[i]=='í':
+                    linhas.penup()
+                    linhas.setpos(-500+(40+10)*i,-250)
+                    linhas.pendown()
+                    linhas.write(letra[i], font=('Arial',25,'normal'))
+                elif(letra)=='
     y=window.textinput('Jogar novamente?', 'Quer jogar novamente?').lower()
             
 window.exitonclick()
