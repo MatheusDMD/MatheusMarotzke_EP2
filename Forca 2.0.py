@@ -8,6 +8,7 @@ import tkinter
 angulo = 90
 
 alfabeto = list(string.ascii_lowercase)
+alfabeto2 = ['ã','ó','ô','í']
 
 window = turtle.Screen()
 window.bgcolor("yellow")
@@ -26,12 +27,42 @@ linhas = turtle.Turtle()
 linhas.color("black")
 
 l=[]
+letras=[]
+letra=''
 f = open('entrada.txt', encoding = "utf-8")
 lista = f.readlines()
 for i in range(len(lista)):
     lista[i] = lista[i].strip().lower()
     if lista[i] != '':
         l.append(lista[i])
+
+def fun_traços(p):
+    for i in range(len(p)):
+        if letra == p[i]:
+            linhas.penup()
+            linhas.setpos(-480+(40+10)*i,-250)
+            linhas.pendown()
+            linhas.write(letra, font=('Arial',25,'normal'))
+        elif letra == 'a' and p[i] == 'ã':
+            linhas.penup()
+            linhas.setpos(-480+(40+9)*i,-250)
+            linhas.pendown()
+            linhas.write(p[i], font=('Arial',25,'normal'))
+        elif letra == 'i' and p[i] == 'í':
+            linhas.penup()
+            linhas.setpos(-480+(40+9)*i,-250)
+            linhas.pendown()
+            linhas.write(p[i], font=('Arial',25,'normal'))
+        elif letra == 'o' and p[i] == 'ó':
+            linhas.penup()
+            linhas.setpos(-480+(40+9)*i,-250)
+            linhas.pendown()
+            linhas.write(p[i], font=('Arial',25,'normal'))
+        elif letra == 'o' and p[i] == 'ô':
+            linhas.penup()
+            linhas.setpos(-480+(40+10)*i,-250)
+            linhas.pendown()
+            linhas.write(p[i], font=('Arial',25,'normal'))
 
 def contar_espaços():
     contagem = 0
@@ -134,49 +165,46 @@ while y == True:
     linhas.clear()
     fun_linhas()
     contagem = contar_espaços()
+    l.remove(palavra)
+    letras.clear()
     erro = 0
     pnt = len(p) - contagem
+    if l == []:
+        tkinter.messagebox.showinfo('Game Over!','Você esgotou todas as opções de Palavras')
+        tkinter.messagebox.showinfo('Obrigado!','Obrigado por Jogar!')
     while erro < 6 and pnt > 0:
-        letra = window.textinput('Letra','Escolha uma letra').lower()
+        letras.append(letra)
+        letra = window.textinput('Letra','Escreva uma letra').lower()
         if letra not in alfabeto:
             tkinter.messagebox.showwarning('Letra inválida','Letra inválida')
-        elif letra in p and letra in alfabeto:
-            for i in range(len(p)):
-                if letra == p[i]:
-                    if letra == 'a' and p[i] == 'ã':
+        elif letra in letras:
+            tkinter.messagebox.showwarning('Letra inválida','Letra já utilizada')
+        elif letra in p:
+                for i in range(len(p)):
+                    if letra == p[i]:
                         pnt-=1
-                    if letra == 'o' and p[i] == 'ô':
+                    elif letra == 'a' and p[i] == 'ã':
                         pnt-=1
-                pnt-=1 #TERMINAR!!! outras letras...
-        elif letra not in p:
+                    elif letra == 'o' and p[i] == 'ô':
+                        pnt-=1
+                    elif letra == 'o' and p[i] == 'ó':
+                        pnt-=1
+                    elif letra == 'i' and p[i] == 'í':
+                        pnt-=1                
+        else:
             erro+=1
-            fun_erro(erro)
-        for i in range(len(p)):
-            if letra == p[i]:
-                linhas.penup()
-                linhas.setpos(-480+(40+10)*i,-250)
-                linhas.pendown()
-                linhas.write(letra, font=('Arial',25,'normal'))
-            elif letra == 'a' and p[i] == 'ã':
-                linhas.penup()
-                linhas.setpos(-480+(40+9)*i,-250)
-                linhas.pendown()
-                linhas.write(p[i], font=('Arial',25,'normal'))
-            elif letra == 'i' and p[i] == 'í':
-                linhas.penup()
-                linhas.setpos(--480+(40+9)*i,-250)
-                linhas.pendown()
-                linhas.write(p[i], font=('Arial',25,'normal'))
-            elif letra == 'o' and p[i] == 'ó':
-                linhas.penup()
-                linhas.setpos(-480+(40+9)*i,-250)
-                linhas.pendown()
-                linhas.write(p[i], font=('Arial',25,'normal'))
-            elif letra == 'o' and p[i] == 'ô':
-                linhas.penup()
-                linhas.setpos(-480+(40+10)*i,-250)
-                linhas.pendown()
-                linhas.write(p[i], font=('Arial',25,'normal'))
+            for i in range(len(p)):
+                if letra == 'a' and p[i] == 'ã':
+                    pnt-=1
+                    erro-=1
+                elif letra == 'o' and (p[i] == 'ô' or p[i] == 'ó'):
+                    pnt-=1
+                    erro-=1
+                elif letra == 'i' and p[i] == 'í':
+                    pnt-=1
+                    erro-=1
+        fun_erro(erro)
+        fun_traços(p)
                 #IMPLEMENTAR PLACAR E CONTAGEM DE ACERTOS E ERROS
                 #FAZER MENSAGEM DE DERROTA E VITÓRIA
     y = tkinter.messagebox.askyesno('GAME OVER','Quer Jogar Novamente?')
