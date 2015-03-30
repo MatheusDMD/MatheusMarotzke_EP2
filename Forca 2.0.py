@@ -7,7 +7,7 @@ import tkinter
 
 angulo = 90
 
-alfabeto = list(string.ascii_lowercase)
+alfabeto = list(string.ascii_lowercase) + ['ç']
 alfabeto2 = ['ã','ó','ô','í']
 
 window = turtle.Screen()
@@ -22,7 +22,9 @@ forca.pendown()
 forca.color("black")
 
 boneco = turtle.Turtle()
-
+plt = turtle.Turtle()
+pl = turtle.Turtle()
+pl.color('brown')
 linhas = turtle.Turtle()
 linhas.color("black")
 
@@ -35,10 +37,21 @@ for i in range(len(lista)):
     lista[i] = lista[i].strip().lower()
     if lista[i] != '':
         l.append(lista[i])
-
+        
+def fun_placar(pnt,erro):
+    plt.clear()
+    pl.penup()
+    pl.setpos(-480,-290)
+    pl.write('Média de Erros/Rodadas:', font=('Arial',20,'normal'))
+    m = erro2/(11-len(p))
+    plt.penup()
+    plt.setpos(-150,-290)
+    plt.pendown()
+    plt.write(m, font=('Arial',20,'normal'))
+    
 def fun_traços(p):
     for i in range(len(p)):
-        if letra == p[i]:
+        if letra == p[i] and letra not in alfabeto2:
             linhas.penup()
             linhas.setpos(-480+(40+10)*i,-250)
             linhas.pendown()
@@ -63,7 +76,11 @@ def fun_traços(p):
             linhas.setpos(-480+(40+10)*i,-250)
             linhas.pendown()
             linhas.write(p[i], font=('Arial',25,'normal'))
-
+        elif letra == 'e' and (p[i] == 'é' or p[i] == 'ê'):
+            linhas.penup()
+            linhas.setpos(-480+(40+10)*i,-250)
+            linhas.pendown()
+            linhas.write(p[i], font=('Arial',25,'normal'))
 def contar_espaços():
     contagem = 0
     for i in range(len(p)):
@@ -151,11 +168,14 @@ def fun_linhas():
             linhas.forward(40)
             linhas.pendown()
 
+plt.hideturtle()
+pl.hideturtle()
 boneco.hideturtle()
 linhas.hideturtle()
 forca.hideturtle()
 fun_forca()
 y = True
+erro2 = 0
 while y == True:
     palavra = (random.choice(l))
     pnt = 0
@@ -169,9 +189,6 @@ while y == True:
     letras.clear()
     erro = 0
     pnt = len(p) - contagem
-    if l == []:
-        tkinter.messagebox.showinfo('Game Over!','Você esgotou todas as opções de Palavras')
-        tkinter.messagebox.showinfo('Obrigado!','Obrigado por Jogar!')
     while erro < 6 and pnt > 0:
         letras.append(letra)
         letra = window.textinput('Letra','Escreva uma letra').lower()
@@ -191,21 +208,33 @@ while y == True:
                         pnt-=1
                     elif letra == 'i' and p[i] == 'í':
                         pnt-=1                
+                    elif letra == 'e' and (p[i] == 'é' or p[i] == 'ê'):
+                        pnt-=1
         else:
             erro+=1
+            erro2+=1
             for i in range(len(p)):
                 if letra == 'a' and p[i] == 'ã':
                     pnt-=1
                     erro-=1
-                elif letra == 'o' and (p[i] == 'ô' or p[i] == 'ó'):
+                    erro-=1
+                elif letra == 'o' and (p[i] == 'ô' or p[i] == 'ó' or p[i] == 'õ'):
                     pnt-=1
                     erro-=1
+                    erro2-=1
                 elif letra == 'i' and p[i] == 'í':
                     pnt-=1
                     erro-=1
+                    erro2-=1
+                elif letra == 'e' and (p[i] == 'é' or p[i] == 'ê'):
+                    pnt-=1
+                    erro-=1
+                    erro2-=1
         fun_erro(erro)
         fun_traços(p)
-                #IMPLEMENTAR PLACAR E CONTAGEM DE ACERTOS E ERROS
-                #FAZER MENSAGEM DE DERROTA E VITÓRIA
+        fun_placar(pnt,erro)
     y = tkinter.messagebox.askyesno('GAME OVER','Quer Jogar Novamente?')
+if l == []:
+    tkinter.messagebox.showinfo('Game Over!','Você esgotou todas as opções de Palavras')
+    tkinter.messagebox.showinfo('Obrigado!','Obrigado por Jogar!')
 window.exitonclick()
