@@ -8,7 +8,7 @@ import tkinter
 angulo = 90
 
 alfabeto = list(string.ascii_lowercase) + ['ç']
-alfabeto2 = ['ã','ó','ô','í']
+alfabeto2 = ['ã','ó','ô','í','é','ê']
 
 window = turtle.Screen()
 window.bgcolor("yellow")
@@ -38,14 +38,14 @@ for i in range(len(lista)):
     if lista[i] != '':
         l.append(lista[i])
         
-def fun_placar(pnt,erro):
+def fun_placar(erro2,l):
     plt.clear()
     pl.penup()
     pl.setpos(-480,-290)
-    pl.write('Média de Erros/Rodadas:', font=('Arial',20,'normal'))
-    m = erro2/(11-len(p))
+    pl.write('Média de Erros por Rodada:', font=('Arial',20,'normal'))
+    m = erro2/(11-len(l))
     plt.penup()
-    plt.setpos(-150,-290)
+    plt.setpos(-140,-290)
     plt.pendown()
     plt.write(m, font=('Arial',20,'normal'))
     
@@ -81,6 +81,7 @@ def fun_traços(p):
             linhas.setpos(-480+(40+10)*i,-250)
             linhas.pendown()
             linhas.write(p[i], font=('Arial',25,'normal'))
+            
 def contar_espaços():
     contagem = 0
     for i in range(len(p)):
@@ -176,6 +177,7 @@ forca.hideturtle()
 fun_forca()
 y = True
 erro2 = 0
+tkinter.messagebox.showinfo('Bem Vindo!','Bem vindo ao jogo de Forca! Boa sorte!')
 while y == True:
     palavra = (random.choice(l))
     pnt = 0
@@ -192,7 +194,18 @@ while y == True:
     while erro < 6 and pnt > 0:
         letras.append(letra)
         letra = window.textinput('Letra','Escreva uma letra').lower()
-        if letra not in alfabeto:
+        if letra == 'deus':
+            tkinter.messagebox.showinfo('Deus?','Ok Ok... você o salvou')
+            break
+        elif letra == 'matheus dias':
+            x = tkinter.messagebox.askyesno('Oooh! Criador!','Você deseja poupá-lo oh! poderoso criador?')
+            if x == True:
+                break
+            else:
+                for i in range(erro,7):
+                    fun_erro(i)
+                break
+        elif letra not in alfabeto:
             tkinter.messagebox.showwarning('Letra inválida','Letra inválida')
         elif letra in letras:
             tkinter.messagebox.showwarning('Letra inválida','Letra já utilizada')
@@ -217,7 +230,7 @@ while y == True:
                 if letra == 'a' and p[i] == 'ã':
                     pnt-=1
                     erro-=1
-                    erro-=1
+                    erro2-=1
                 elif letra == 'o' and (p[i] == 'ô' or p[i] == 'ó' or p[i] == 'õ'):
                     pnt-=1
                     erro-=1
@@ -232,8 +245,10 @@ while y == True:
                     erro2-=1
         fun_erro(erro)
         fun_traços(p)
-        fun_placar(pnt,erro)
     y = tkinter.messagebox.askyesno('GAME OVER','Quer Jogar Novamente?')
+    fun_placar(erro2,l)
+else:
+    tkinter.messagebox.showinfo('Obrigado!','Obrigado por Jogar!')
 if l == []:
     tkinter.messagebox.showinfo('Game Over!','Você esgotou todas as opções de Palavras')
     tkinter.messagebox.showinfo('Obrigado!','Obrigado por Jogar!')
