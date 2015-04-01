@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 #Matheus Dias Marotzke Dib
 import string
@@ -70,32 +71,39 @@ def fun_traços(p): #Desenha as letras sobre os espaços
     for i in range(len(p)):
         if letra == p[i] and letra not in alfabeto2:
             linhas.penup()
-            linhas.setpos(-480+(40+9)*i,-250)
+            linhas.setpos(-470+(40+9)*i,-250)
             linhas.pendown()
             linhas.write(letra, font=('Arial',25,'normal'))
         elif letra == 'a' and p[i] == 'ã':
             linhas.penup()
-            linhas.setpos(-480+(40+9)*i,-250)
+            linhas.setpos(-470+(40+9)*i,-250)
             linhas.pendown()
             linhas.write(p[i], font=('Arial',25,'normal'))
         elif letra == 'i' and p[i] == 'í':
             linhas.penup()
-            linhas.setpos(-480+(40+9)*i,-250)
+            linhas.setpos(-470+(40+9)*i,-250)
             linhas.pendown()
             linhas.write(p[i], font=('Arial',25,'normal'))
         elif letra == 'o' and p[i] == 'ó':
             linhas.penup()
-            linhas.setpos(-480+(40+9)*i,-250)
+            linhas.setpos(-470+(40+9)*i,-250)
             linhas.pendown()
             linhas.write(p[i], font=('Arial',25,'normal'))
         elif letra == 'o' and p[i] == 'ô':
             linhas.penup()
-            linhas.setpos(-480+(40+10)*i,-250)
+            linhas.setpos(-470+(40+9)*i,-250)
             linhas.pendown()
             linhas.write(p[i], font=('Arial',25,'normal'))
         elif letra == 'e' and (p[i] == 'é' or p[i] == 'ê'):
             linhas.penup()
-            linhas.setpos(-480+(40+10)*i,-250)
+            linhas.setpos(-470+(40+9)*i,-250)
+            linhas.pendown()
+            linhas.write(p[i], font=('Arial',25,'normal'))
+
+def fun_traços2(p): #Desenha as letras sobre os espaços (se perder)
+    for i in range(len(p)):
+            linhas.penup()
+            linhas.setpos(-470+(40+9)*i,-250)
             linhas.pendown()
             linhas.write(p[i], font=('Arial',25,'normal'))
             
@@ -243,17 +251,17 @@ tkinter.messagebox.showinfo('Bem Vindo! ao OLD WEST FORCA!','Bem vindo ao jogo d
 
 while y == True:
     j = window.textinput('1P? ou 2P?','Digite 1P ou 2P').lower()
-    if j == '1p' or j == '1 jogador' or j == 'um jogador' or j == '1 player':
+    if j == '1' or j == '1p' or j == '1 jogador' or j == 'um jogador' or j == '1 player':
         x = window.textinput('Dificuldade:','Fácil ou Médio ou O.W. style').lower()
         if x == 'fácil' or x == 'facil' or x == 'easy':
             e = 12
         elif x == 'medio' or x == 'medium' or x == 'médio':
             e = 8
-        elif x == 'o.w. style' or x == 'ow style' or x == 'difícil' or x == 'dificil' or x == 'hard':
+        elif x == 'ow' or x == 'o.w.' or x == 'o.w. style' or x == 'ow style' or x == 'difícil' or x == 'dificil' or x == 'hard':
             e = 6
         else:
             x = window.textinput('Dificuldade:','por favor, digite uma destas opções: Fácil ou Médio ou O.W. style').lower()
-    elif j == '2p' or j == '2 jogadores' or j == 'dois jogadores' or j == '2 players':
+    elif j == '2' or j == '2p' or j == '2 jogadores' or j == 'dois jogadores' or j == '2 players':
         palavra = window.textinput('Palavra','Jogador!, Digite uma palavra (SEM O outro VEJA!) para que ele adivinhe').lower()
     else:
         tkinter.messagebox.showinfo('Escreveu errado?','Agora vai jogar no 1P!')
@@ -262,7 +270,7 @@ while y == True:
         tkinter.messagebox.showinfo('Game Over!','Você esgotou todas as opções de Palavras')
         tkinter.messagebox.showinfo('Obrigado!','Obrigado por Jogar!')
         #Exclama, caso tenha esgotado suas palavras, que o jogo acabou
-    elif j == '1p' or j == '1 jogador' or j == 'um jogador' or j == '1 player':
+    elif j == '1' or j == '1p' or j == '1p' or j == '1 jogador' or j == 'um jogador' or j == '1 player':
         palavra = (random.choice(l))
         l.remove(palavra)    # Remove a palavra sorteada da lista 
     else:
@@ -288,10 +296,12 @@ while y == True:
         elif letra == 'matheus marotzke': # Comando de Admin (por diversão)
             x = tkinter.messagebox.askyesno('Oooh! Criador!','Você deseja poupá-lo oh! poderoso criador?')
             if x == True:
+                fun_traços2(p)
                 break
             else:
                 for i in range(erro,7):
                     fun_erro(i)
+                    fun_traços2(p)
                 break
         elif letra not in alfabeto:
             tkinter.messagebox.showwarning('Letra inválida','Letra inválida')
@@ -334,8 +344,10 @@ while y == True:
                     erro2-=1
         fun_erro(erro)
         fun_traços(p)
+        if erro == e:
+            fun_traços2(p)
     y = tkinter.messagebox.askyesno('GAME OVER','Quer Jogar Novamente?')
-    if j == '1p' or j == '1 jogador' or j == 'um jogador' or j == '1 player':
+    if j == '1' or j == '1p' or j == '1 jogador' or j == 'um jogador' or j == '1 player':
         fun_placar(erro2,l)
 else:
     tkinter.messagebox.showinfo('Obrigado!','Obrigado por Jogar!')
